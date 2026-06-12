@@ -1,0 +1,66 @@
+```yaml
+# models/staging/sources.yml
+version: 2
+
+sources:
+  - name: raw
+    database: SALES_ANALYTICS_DB
+    schema: RAW
+    description: "Raw e-commerce source tables loaded from transactional systems"
+
+    tables:
+      - name: customers
+        description: "One record per customer. Source of truth for customer identity."
+        columns:
+          - name: customer_id
+            description: "Primary key — unique identifier for each customer"
+            tests:
+              - unique
+              - not_null
+          - name: email
+            tests:
+              - unique
+              - not_null
+
+      - name: products
+        description: "Product catalog with pricing information"
+        columns:
+          - name: product_id
+            tests:
+              - unique
+              - not_null
+
+      - name: orders
+        description: "Order header records — one row per order placed"
+        columns:
+          - name: order_id
+            tests:
+              - unique
+              - not_null
+          - name: customer_id
+            tests:
+              - not_null
+              - relationships:
+                  to: source('raw', 'customers')
+                  field: customer_id
+
+      - name: order_items
+        description: "Line items for each order — one row per product per order"
+        columns:
+          - name: order_item_id
+            tests:
+              - unique
+              - not_null
+          - name: order_id
+            tests:
+              - not_null
+              - relationships:
+                  to: source('raw', 'orders')
+                  field: order_id
+          - name: product_id
+            tests:
+              - not_null
+              - relationships:
+                  to: source('raw', 'products')
+                  field: product_id
+```

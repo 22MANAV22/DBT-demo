@@ -1,0 +1,68 @@
+```yaml
+# models/marts/schema.yml
+version: 2
+
+models:
+  - name: dim_customer
+    description: >
+      Customer dimension enriched with purchase history metrics.
+      One row per customer. Includes all customers even without orders.
+    columns:
+      - name: customer_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: email
+        tests:
+          - unique
+          - not_null
+      - name: customer_segment
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['VIP', 'Regular', 'Occasional', 'Prospect']
+
+  - name: dim_product
+    description: >
+      Product dimension with sales performance metrics.
+      One row per product.
+    columns:
+      - name: product_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: unit_price
+        tests:
+          - not_null
+
+  - name: fact_sales
+    description: >
+      Fact table at the order line item grain.
+      Central table for all revenue reporting.
+    columns:
+      - name: order_item_id
+        description: "Primary key — unique order line"
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+        tests:
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customer')
+              field: customer_id
+      - name: product_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_product')
+              field: product_id
+      - name: line_revenue
+        tests:
+          - not_null
+```
