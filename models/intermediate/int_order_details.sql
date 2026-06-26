@@ -1,5 +1,4 @@
-```sql
--- models/intermediate/int_order_details.sql
+
 with orders as (
     select * from {{ ref('stg_orders') }}
 ),
@@ -33,4 +32,4 @@ joined as (
 )
 
 select * from joined
-```
+

@@ -1,5 +1,4 @@
-```sql
--- models/staging/stg_orders.sql
+
 with source as (
     select * from {{ source('raw', 'orders') }}
 ),
@@ -17,4 +16,3 @@ renamed as (
 )
 
 select * from renamed
-```

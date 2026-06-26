@@ -1,5 +1,4 @@
-```sql
--- models/marts/fact_sales.sql
+
 with order_details as (
     select * from {{ ref('int_order_details') }}
 ),
@@ -55,4 +54,3 @@ final as (
 )
 
 select * from final
-```

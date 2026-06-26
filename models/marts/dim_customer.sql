@@ -1,5 +1,4 @@
-```sql
--- models/marts/dim_customer.sql
+
 with customers as (
     select * from {{ ref('stg_customers') }}
 ),
@@ -33,4 +32,3 @@ final as (
 )
 
 select * from final
-```

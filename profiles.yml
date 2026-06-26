@@ -1,0 +1,14 @@
+sales_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: 
+      user: 
+      password: 
+      role: DBT_ROLE
+      database: SALES_ANALYTICS_DB
+      warehouse: COMPUTE_WH
+      schema: DBT_DEV
+      threads: 4
+      client_session_keep_alive: false

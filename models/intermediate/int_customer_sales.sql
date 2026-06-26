@@ -1,5 +1,4 @@
-```sql
--- models/intermediate/int_customer_sales.sql
+
 with order_details as (
     select * from {{ ref('int_order_details') }}
 ),
@@ -23,4 +22,6 @@ customer_aggregates as (
 )
 
 select * from customer_aggregates
-```
+
+
+

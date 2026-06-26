@@ -1,5 +1,4 @@
-```yaml
-# models/marts/schema.yml
+
 version: 2
 
 models:
@@ -65,4 +64,3 @@ models:
       - name: line_revenue
         tests:
           - not_null
-```

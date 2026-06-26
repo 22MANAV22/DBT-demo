@@ -1,5 +1,3 @@
-```yaml
-# models/staging/sources.yml
 version: 2
 
 sources:
@@ -63,4 +61,3 @@ sources:
               - relationships:
                   to: source('raw', 'products')
                   field: product_id
-```
